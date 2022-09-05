@@ -5,9 +5,9 @@
 int main()
 {
     int index=0, lenght=0, element=0;
-    bool open=true;
+    bool open=true, changing=true;
     
-    while(true)
+    while(open==true)
     {
         std::cout<<"Введите размер массива: ";
         std::cin>>lenght;
@@ -17,7 +17,7 @@ int main()
             intArray1->show_container();
             std::cout<<"Копируем первоначальный контейнер."<<std::endl;
             Container* intArray2 = new Container(*intArray1);
-            while(open==true)
+            while(changing==true)
             {
                 char key=' ';
                 std::cout<<"Меню работы с контейнером целых чисел."<<std::endl;
@@ -187,7 +187,7 @@ int main()
                 //Выход
                 case '0':
                     {
-                        open=false;
+                        changing=false;
                         break;
                     }
                 default:
@@ -203,11 +203,29 @@ int main()
             std::cout<<"Первоначальный контейнер: ";
             intArray2->show_container();
             delete intArray2;
-            break;
         }
         catch(const std::exception& e)
         {
             std::cout<<"Ошибка: "<<e.what()<<std::endl;
+        }
+        while(true)
+        {
+            char key=' ';
+            std::cout<<"Желаете создать еще один контейнер?(y/n) ";
+            std::cin>>key;
+            if(key=='n')
+            {
+                open=false;
+                break;
+            }
+            else if(key=='y')
+            {
+                break;
+            }
+            else
+            {
+                continue;
+            }
         }
     }
     return 0;
